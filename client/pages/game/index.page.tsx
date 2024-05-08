@@ -8,7 +8,7 @@ const Box: React.FC<BoxProps> = (props) => {
   const mesh = useRef<Mesh>(null!);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
-  useFrame(() => (mesh.current.rotation.x += 0.01));
+  useFrame(() => (mesh.current.rotation.x += 0.02));
 
   return (
     <mesh

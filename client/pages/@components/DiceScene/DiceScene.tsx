@@ -1,5 +1,5 @@
 import { useFBX } from '@react-three/drei';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { useLoader } from '@react-three/fiber';
 import { motion } from 'framer-motion-3d';
 import { TextureLoader, type Mesh } from 'three';
 
@@ -10,9 +10,8 @@ export const DiceScene = () => {
   const texture = useLoader(TextureLoader, '/models/dice/dice.png');
 
   return (
-    <Canvas>
-      <motion.mesh scale={[1, 1, 1]} geometry={geometry} position={[0, -2, 0]} />
+    <motion.mesh scale={[1, 1, 1]} geometry={geometry} position={[0, -2, 0]}>
       <meshPhysicalMaterial map={texture} />
-    </Canvas>
+    </motion.mesh>
   );
 };

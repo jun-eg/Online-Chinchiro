@@ -1,25 +1,17 @@
-import { DiceScene } from 'pages/@components/DiceScene/DiceScene';
-import { useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import type { NextPage } from 'next';
+import { Box } from 'pages/@components/TestBox';
 
-export type AnimateState = 'rest' | 'rolling' | 'drop';
+const Home: NextPage = () => (
+  <div style={{ width: '100vw', height: '100vh' }}>
+    <Canvas>
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      <Box position={[-3.2, 0, 0]} />
+      <Box position={[0, 0, 0]} />
+      <Box position={[3.2, 0, 0]} />
+    </Canvas>
+  </div>
+);
 
-export default function LikePage() {
-  const [sum, setSum] = useState<number>(0);
-  const [diceValue, setDiceValue] = useState<number>(1);
-  const [animateState, setAnimateState] = useState<AnimateState>('rest');
-
-  const onClickDice = () => {
-    const newDiceValue = Math.floor(Math.random() * 6) + 1;
-    const newSum = sum + newDiceValue;
-
-    setDiceValue(newDiceValue);
-
-    return { newDiceValue, newSum };
-  };
-
-  return (
-    <>
-      <DiceScene />
-    </>
-  );
-}
+export default Home;

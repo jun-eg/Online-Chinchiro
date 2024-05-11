@@ -46,7 +46,7 @@ const DideApp = () => {
           <ambientLight intensity={1} />
           <pointLight position={[0, 10, 0]} intensity={200} />
           <Dice
-            diceNumber={1}
+            dicePositionNumber={1}
             position={[-3, 0, 0]}
             diceValues={dicevalues}
             onClickDice={onClickDice}
@@ -54,7 +54,7 @@ const DideApp = () => {
             animationState={animatinState}
           />
           <Dice
-            diceNumber={2}
+            dicePositionNumber={2}
             position={[0, 0, 0]}
             diceValues={dicevalues}
             onClickDice={onClickDice}
@@ -62,7 +62,7 @@ const DideApp = () => {
             animationState={animatinState}
           />
           <Dice
-            diceNumber={3}
+            dicePositionNumber={3}
             position={[3, 0, 0]}
             diceValues={dicevalues}
             onClickDice={onClickDice}

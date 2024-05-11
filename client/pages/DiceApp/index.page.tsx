@@ -10,7 +10,7 @@ export type AnimationState = 'rest' | 'rolling' | 'drop';
 
 const DideApp = () => {
   const [user] = useAtom(userAtom);
-  const [dicevalue, setDiceValue] = useState<number>(1);
+  const [dicevalues, setDiceValues] = useState<number[]>([1, 1, 1]);
   const [animatinState, setAnimationState] = useState<AnimationState>('rest');
 
   const sleep = (ms: number): Promise<void> => {
@@ -27,11 +27,15 @@ const DideApp = () => {
     setAnimationState('rest');
   };
 
-  const onClickDice = (): { newDiceValue: number } => {
-    const newDiceValue = Math.floor(Math.random() * 6 + 1);
-    setDiceValue(newDiceValue);
+  const onClickDice = (): { newDiceValues: number[] } => {
+    const newDiceValues: number[] = [
+      Math.floor(Math.random() * 6 + 1),
+      Math.floor(Math.random() * 6 + 1),
+      Math.floor(Math.random() * 6 + 1),
+    ];
+    setDiceValues(newDiceValues);
 
-    return { newDiceValue };
+    return { newDiceValues };
   };
   if (!user) return <Loading visible />;
   return (
@@ -42,22 +46,25 @@ const DideApp = () => {
           <ambientLight intensity={1} />
           <pointLight position={[0, 10, 0]} intensity={200} />
           <Dice
+            diceNumber={1}
             position={[-3, 0, 0]}
-            diceValue={dicevalue}
+            diceValues={dicevalues}
             onClickDice={onClickDice}
             startAnimation={startAnimation}
             animationState={animatinState}
           />
           <Dice
+            diceNumber={2}
             position={[0, 0, 0]}
-            diceValue={dicevalue}
+            diceValues={dicevalues}
             onClickDice={onClickDice}
             startAnimation={startAnimation}
             animationState={animatinState}
           />
           <Dice
+            diceNumber={3}
             position={[3, 0, 0]}
-            diceValue={dicevalue}
+            diceValues={dicevalues}
             onClickDice={onClickDice}
             startAnimation={startAnimation}
             animationState={animatinState}

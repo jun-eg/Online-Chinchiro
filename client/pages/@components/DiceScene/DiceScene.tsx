@@ -6,10 +6,12 @@ import React, { useRef, useState } from 'react';
 import { TextureLoader, type Mesh } from 'three';
 
 type DiceProps = {
+  //diceNumberは左から何番目かを表す
+  diceNumber: number;
   position: [x: number, y: number, z: number];
-  diceValue: number;
+  diceValues: number[];
   animationState: AnimationState;
-  onClickDice: () => { newDiceValue: number };
+  onClickDice: () => { newDiceValues: number[] };
   startAnimation: () => void;
 };
 
@@ -23,10 +25,11 @@ const diceValuePosition = [
 ];
 
 export const Dice: React.FC<DiceProps> = ({
-  diceValue,
+  diceValues,
   onClickDice,
   startAnimation,
   animationState,
+  diceNumber,
   ...restProps
 }) => {
   const group = useFBX('/models/dice/dice.fbx');
@@ -34,7 +37,7 @@ export const Dice: React.FC<DiceProps> = ({
   const mesh = useRef<Mesh>(group.children[0] as Mesh);
   const geometry = mesh.current.geometry;
   const [hovered, setHover] = useState<boolean>(false);
-  let newDiceValue: number = diceValue;
+  let newDiceValues: number[] = diceValues;
 
   return (
     <motion.mesh
@@ -47,13 +50,13 @@ export const Dice: React.FC<DiceProps> = ({
           const clickedResult = onClickDice();
           setHover(false);
           startAnimation();
-          newDiceValue = clickedResult.newDiceValue;
+          newDiceValues = clickedResult.newDiceValues;
         }
       }}
       rotation={[
-        diceValuePosition[newDiceValue - 1].x,
-        diceValuePosition[newDiceValue - 1].y,
-        diceValuePosition[newDiceValue - 1].z,
+        diceValuePosition[newDiceValues[diceNumber - 1] - 1].x,
+        diceValuePosition[newDiceValues[diceNumber - 1] - 1].y,
+        diceValuePosition[newDiceValues[diceNumber - 1] - 1].z,
       ]}
       animate={animationState}
       onPointerOver={() => {
@@ -65,15 +68,15 @@ export const Dice: React.FC<DiceProps> = ({
       variants={{
         rest: {
           y: 0,
-          rotateX: diceValuePosition[diceValue - 1].x,
-          rotateY: diceValuePosition[diceValue - 1].y,
-          rotateZ: diceValuePosition[diceValue - 1].z,
+          rotateX: diceValuePosition[newDiceValues[diceNumber - 1] - 1].x,
+          rotateY: diceValuePosition[newDiceValues[diceNumber - 1] - 1].y,
+          rotateZ: diceValuePosition[newDiceValues[diceNumber - 1] - 1].z,
         },
         rolling: {
           y: 2.5,
-          rotateX: diceValuePosition[newDiceValue - 1].x + 2 * Math.PI,
-          rotateY: diceValuePosition[newDiceValue - 1].y + 2 * Math.PI,
-          rotateZ: diceValuePosition[newDiceValue - 1].z + 2 * Math.PI,
+          rotateX: diceValuePosition[newDiceValues[diceNumber - 1] - 1].x + 2 * Math.PI,
+          rotateY: diceValuePosition[newDiceValues[diceNumber - 1] - 1].y + 2 * Math.PI,
+          rotateZ: diceValuePosition[newDiceValues[diceNumber - 1] - 1].z + 2 * Math.PI,
           transition: {
             y: {
               ease: 'circOut',
@@ -97,9 +100,9 @@ export const Dice: React.FC<DiceProps> = ({
         },
         drop: {
           y: -1,
-          rotateX: diceValuePosition[diceValue - 1].x,
-          rotateY: diceValuePosition[diceValue - 1].y,
-          rotateZ: diceValuePosition[diceValue - 1].z,
+          rotateX: diceValuePosition[newDiceValues[diceNumber - 1] - 1].x,
+          rotateY: diceValuePosition[newDiceValues[diceNumber - 1] - 1].y,
+          rotateZ: diceValuePosition[newDiceValues[diceNumber - 1] - 1].z,
           transition: {
             rotation: {
               duration: 0.1,

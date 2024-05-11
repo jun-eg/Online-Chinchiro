@@ -3,10 +3,12 @@ import { userAtom } from 'atoms/user';
 import { Loading } from 'components/Loading/Loading';
 import { useAtom } from 'jotai';
 import { BasicHeader } from 'pages/@components/BasicHeader/BasicHeader';
-import { DiceScene } from 'pages/@components/DiceScene/DiceScene';
+import { Dice } from 'pages/@components/DiceScene/DiceScene';
+import { useState } from 'react';
 
 const DideApp = () => {
   const [user] = useAtom(userAtom);
+  const [dicevalue, setDiceValue] = useState<number>(1);
   if (!user) return <Loading visible />;
   return (
     <>
@@ -15,9 +17,7 @@ const DideApp = () => {
         <Canvas>
           <ambientLight />
           <pointLight position={[0, 10, 0]} />
-          <DiceScene position={[-3, 0, 0]} />
-          <DiceScene position={[0, 0, 0]} />
-          <DiceScene position={[3, 0, 0]} />
+          <Dice position={[0, 0, 0]} diceValue={dicevalue} />
         </Canvas>
       </div>
     </>

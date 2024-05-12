@@ -5,6 +5,8 @@ import type { AnimationState } from 'pages/DiceApp/index.page';
 import React, { useRef, useState } from 'react';
 import { TextureLoader, type Mesh } from 'three';
 
+//test
+
 type DiceProps = {
   dicePositionNumber: number;
   position: [x: number, y: number, z: number];
